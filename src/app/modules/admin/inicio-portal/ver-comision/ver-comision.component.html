@@ -1,0 +1,343 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto bg-white" cdkScrollable>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:px-26 sm:py-10">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="min-h-100">
+            <!-- breadcrum -->
+            <div class="flex flex-wrap items-center font-medium mb-2">
+                <a class="whitespace-nowrap text-primary-500 text-lg" [routerLink]="['/inicio-portal']">Comisiones</a>
+                <div class="flex items-center ml-1 whitespace-nowrap text-lg">
+                    <mat-icon
+                        class="icon-size-5 text-secondary"
+                        [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                    <a class="ml-1 text-primary-700" >{{title}}</a>
+                </div>
+            </div>
+
+            <!-- title -->
+            <div class="w-full flex items-start mt-5">
+                <h2 class="text-4xl font-semibold text-primary-500">{{title}}</h2>
+            </div>
+
+            <!-- contenido -->
+            <div class="w-full">
+                <!-- grid -->
+                <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-7">
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Plenaria de Cámara de Representantes</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Plenaria</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">David Ricardo Racero Mayorca</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Olaga lucia Velasquez Nieto</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Jaime Luis Lacouture Peñaloza</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black">Raúl Enrique Ávila Hernández</p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Seguimiento al Proceso de Centralizacion y Ordenamiento Territorial</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Territorial I</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">Edgar Giovanny Sarmiento Hidalgo</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Gersel Luis Pérez Altamiranda</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Luis Orlando Gallo Cubillos</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black"></p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Plenaria de Cámara de Representantes</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Plenaria</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">David Ricardo Racero Mayorca</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Olaga lucia Velasquez Nieto</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Jaime Luis Lacouture Peñaloza</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black">Raúl Enrique Ávila Hernández</p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Seguimiento al Proceso de Centralizacion y Ordenamiento Territorial</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Territorial I</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">Edgar Giovanny Sarmiento Hidalgo</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Gersel Luis Pérez Altamiranda</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Luis Orlando Gallo Cubillos</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black"></p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Plenaria de Cámara de Representantes</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Plenaria</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">David Ricardo Racero Mayorca</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Olaga lucia Velasquez Nieto</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Jaime Luis Lacouture Peñaloza</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black">Raúl Enrique Ávila Hernández</p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- card -->
+                    <div class="w-full p-6 rounded-md shadow-xl hover:shadow-2xl cursor-pointer flex flex-col justify-center hover:bg-slate-100">
+                        <!-- icon -->
+                        <div class="w-full flex items-start">
+                            <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+
+                        <!-- title -->
+                        <div class="mt-2">
+                            <h3 class="text-2xl font-semibold text-black">Seguimiento al Proceso de Centralizacion y Ordenamiento Territorial</h3>
+                        </div>
+
+                        <!-- description -->
+                        <div class="mt-2">
+                            <p class="text-xl font-normal leading-relaxed text-black">Territorial I</p>
+                        </div>
+
+                        <!-- participantes -->
+                        <div class="mt-2 p-2">
+                            <!-- presidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Presidente:</p>
+                                <p class="text-lg font-normal text-black">Edgar Giovanny Sarmiento Hidalgo</p>
+                            </div>
+                            <!-- vicepresidente -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Vicepresidente:</p>
+                                <p class="text-lg font-normal text-black">Gersel Luis Pérez Altamiranda</p>
+                            </div>
+                            <!-- Secretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Secretario:</p>
+                                <p class="text-lg font-normal text-black">Luis Orlando Gallo Cubillos</p>
+                            </div>
+                            <!-- Subsecretario -->
+                            <div>
+                                <p class="text-lg font-semibold text-black">Subsecretario:</p>
+                                <p class="text-lg font-normal text-black"></p>
+                            </div>
+                        </div>
+
+                        <!-- divider -->
+                        <div class="p-0.5 bg-primary"></div>
+
+                        <!-- Boton -->
+                        <div class="w-full flex items-start mt-2">
+                            <button class="rounded-md border-solid border-2 border-primary hover:bg-primary hover:text-white" mat-button [color]="'primary'">
+                                Entrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,15 +9,15 @@ import { LayoutComponent } from 'app/layout/layout.component';
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
 
-    // Redirect empty path to '/example'
-    {path: '', pathMatch : 'full', redirectTo: 'example'},
+    // Redirect empty path to '/inicio-portal'
+    {path: '', pathMatch : 'full', redirectTo: 'inicio-portal'},
 
-    // Redirect signed-in user to the '/example'
+    // Redirect signed-in user to the '/inicio-portal'
     //
     // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'example'},
+    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'inicio-portal'},
 
     // Auth routes for guests
     {
@@ -30,9 +30,9 @@ export const appRoutes: Route[] = [
         },
         children: [
             // {path: 'confirmation-required', loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes')},
-            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes')},
-            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes')},
-            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes')},
+            {path: 'forgot-password', loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes'), title: 'Relatoría | Recuperacion de contraseña'},
+            {path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes'), title: 'Relatoría | Reiniciar contraseña'},
+            {path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes'), title: 'Relatoría | Iniciar sesión'},
             // {path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes')}
         ]
     },
@@ -75,6 +75,10 @@ export const appRoutes: Route[] = [
         },
         children: [
             {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
+            {path: 'inicio-portal', loadChildren: () => import('app/modules/admin/inicio-portal/inicio-portal.routes')},
+            {path: 'busqueda', loadChildren: () => import('app/modules/admin/busqueda/busqueda.routes')},
+            {path: 'usuarios', loadChildren: () => import('app/modules/admin/usuarios/usuarios.routes')},
+            {path: 'logs', loadChildren: () => import('app/modules/admin/logs/logs.routes')},
         ]
     }
 ];

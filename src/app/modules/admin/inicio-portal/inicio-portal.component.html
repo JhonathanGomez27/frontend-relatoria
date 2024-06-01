@@ -1,0 +1,99 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto bg-white" cdkScrollable>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:px-26 sm:py-10">
+
+        <!-- CONTENT GOES HERE -->
+        <div class="min-h-100">
+            <!-- Titulo -->
+            <div class="flex flex-col items-start mb-6 w-full p-4 bg-gradient-to-r from-white from-60% to-primary-200 rounded-md">
+                <h2 class="text-4xl font-semibold text-primary-700">Portal de Relatoría</h2>
+                <h3 class="text-4xl font-medium text-primary">CAMARA DE REPRESENTANTES</h3>
+            </div>
+
+            <!-- description -->
+            <div class="flex flex-col items-start mb-6 w-full p-4">
+                <p class="text-lg font-medium leading-relaxed text-black text-justify">El Portal de Relatoría es una plataforma encaminada a presentar y gestionar la información de las diferentes sesiones de la Cámara de Representantes, las cuales son: Plenarias, Comisiones Constitucionales, Comisiones Legales y Comisiones Especiales. Las funciones que permite la Plataforma para cada una de estas sesiones son: reproducción de audio y video, visualización de la transcripción y descarga de la sesión en los formatos Word, PDF, audio y video. Adicionalmente la plataforma permite realizar búsquedas avanzadas de cualquier información que se requiera en el texto de transcripción de las diferentes sesiones.
+                </p>
+            </div>
+
+            <!-- botones -->
+            <div class="w-full flex justify-end gap-3">
+                <button class="text-primary-700 text-lg hover:bg-primary-100" mat-button>
+                    <mat-icon class="text-primary-700" [svgIcon]="'heroicons_solid:book-open'"></mat-icon>
+                    &nbsp; Manual de usuario
+                </button>
+                <button class="text-primary-700 text-lg hover:bg-primary-100" mat-button>
+                    <mat-icon class="text-primary-700" [svgIcon]="'heroicons_solid:inbox-arrow-down'"></mat-icon>
+                    &nbsp; Offline
+                </button>
+            </div>
+
+            <!-- contenido -->
+            <div class="w-full grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-3 mt-7">
+                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./general']" routerLinkActive="router-link-active" >
+                    <!-- imagen -->
+                    <div class="w-full flex justify-center">
+                        <img class="h-40 w-full rounded-t-md" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
+                    </div>
+                    <!-- descripcion -->
+                    <div class="w-full flex items-center  h-20 px-4">
+                        <div>
+                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
+                            Sesiones Plenarias Salón Elíptico
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./constitucionales']" routerLinkActive="router-link-active">
+                    <!-- imagen -->
+                    <div class="w-full flex justify-center">
+                        <img class="h-40 w-full rounded-t-md co" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Sal%C3%B3n_El%C3%ADptico_-_Palacio_Federal_Legislativo.jpg" alt="">
+                    </div>
+                    <!-- descripcion -->
+                    <div class="w-full flex items-center  h-20 px-4">
+                        <div>
+                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
+                            Comisiones Constitucionales
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./legales']" routerLinkActive="router-link-active">
+                    <!-- imagen -->
+                    <div class="w-full flex justify-center">
+                        <img class="h-40 w-full rounded-t-md co" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
+                    </div>
+                    <!-- descripcion -->
+                    <div class="w-full flex items-center  h-20 px-4">
+                        <div>
+                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
+                            Comisiones Legales
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./especiales']" routerLinkActive="router-link-active">
+                    <!-- imagen -->
+                    <div class="w-full flex justify-center">
+                        <img class="h-40 w-full rounded-t-md co" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
+                    </div>
+                    <!-- descripcion -->
+                    <div class="w-full flex items-center  h-20 px-4">
+                        <div>
+                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                        </div>
+                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
+                            Comisiones Especiales
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

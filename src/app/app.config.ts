@@ -12,6 +12,8 @@ import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './shared/customPaginatorConfiguration';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -122,5 +124,10 @@ export const appConfig: ApplicationConfig = {
                 ],
             },
         }),
+        //provide mat-paginator
+        {
+            provide: MatPaginatorIntl,
+            useClass: CustomMatPaginatorIntl
+        }
     ],
 };
