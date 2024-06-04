@@ -14,6 +14,7 @@ import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './shared/customPaginatorConfiguration';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
         // Material Date Adapter
         {
             provide : DateAdapter,
-            useClass: LuxonDateAdapter,
+            useClass: MomentDateAdapter,
         },
         {
             provide : MAT_DATE_FORMATS,

@@ -25,11 +25,18 @@ export const authInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn):
     // for the protected API routes which our response interceptor will
     // catch and delete the access token from the local storage while logging
     // the user out from the app.
-    if ( authService.accessToken && !AuthUtils.isTokenExpired(authService.accessToken) )
+    if ( authService.accessToken && !AuthUtils.isTokenExpired(authService.accessToken) && authService.refreshToken)
     {
-        newReq = req.clone({
-            headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken),
-        });
+        if(newReq.url.includes('refresh')){
+            newReq = req.clone({
+                headers: req.headers.set('Authorization', 'Bearer ' + authService.refreshToken)
+            });
+        }
+        else{
+            newReq = req.clone({
+                headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken)
+            });
+        }
     }
 
     // Response

@@ -1,1 +1,225 @@
-<p>busqueda works!</p>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <div class="p-6 bg-white w-full flex justify-between">
+        <div class="flex flex-row gap-3 items-center">
+            <!-- <a class="cursor-pointer p-2 flex items-center rounded-none bg-gray-100 " mat-flat-button [routerLink]="['/inicio-portal']">
+                <mat-icon class="text-current icon-size-4 mr-2" [svgIcon]="'mat_outline:arrow_back_ios'"></mat-icon>
+                Volver
+            </a> -->
+            <h2 class="sm:text-4xl font-semibold text-primary-700 text-2xl">Busqueda</h2>
+        </div>
+        <div class="flex items-center">
+            <button mat-icon-button (click)="matDrawer.toggle()">
+                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-drawer-container class="flex-auto h-full">
+        <!-- Drawer -->
+        <mat-drawer class="w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+            <!-- Filters -->
+            <div cass="overflow-y-hidden">
+                <form [formGroup]="filterForm">
+                    <div class="px-5 mt-2" *appShowForRoles="['admin']">
+                        <p class="text-secondary font-medium">Comision</p>
+                        <mat-form-field class="w-full mt-2" [subscriptSizing]="'dynamic'">
+                            <mat-select placeholder="Seleccionar comision" [formControlName]="'comision'" (selectionChange)="setQueryParam('comision', $event.value)" >
+                                <mat-option [value]="''" class="font-medium my-2">Seleccionar comision</mat-option>
+                                <ng-container *ngFor="let item of comisiones">
+                                    <mat-option [value]="item.id" class="font-medium my-2">{{item.title | titlecase}}</mat-option>
+                                </ng-container>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="px-5 mt-2">
+                        <p class="text-secondary font-medium">Fecha Inicio</p>
+                        <mat-form-field class="w-full" [subscriptSizing]="'dynamic'" (click)="fromDatePicker.open()">
+                            <input matInput [matDatepicker]="fromDatePicker" [formControlName]="'fechaInicio'" [placeholder]="'Desde'">
+                            <mat-datepicker #fromDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="px-5 mt-2">
+                        <p class="text-secondary font-medium">Fecha Fin</p>
+                        <mat-form-field class="w-full" [subscriptSizing]="'dynamic'" (click)="toDatePicker.open()">
+                            <input matInput [matDatepicker]="toDatePicker" [formControlName]="'fechaFin'" [placeholder]="'Hasta'">
+                            <mat-datepicker #toDatePicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col bg-white">
+            <!-- Main -->
+            <div class="flex-auto px-6 sm:px-10">
+
+                <!-- Header -->
+                <div class="flex items-center">
+                    <div class="flex items-center flex-auto gap-2">
+                        <mat-form-field class="fuse-mat-rounded fuse-mat-dense flex-auto" [subscriptSizing]="'dynamic'" >
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'" matPrefix></mat-icon>
+                            <input matInput [autocomplete]="'off'" [formControl]="searchControl" [placeholder]="'Realizar busqueda'" #searchInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="flex w-full justify-between px-5 py-2">
+                    <p class="text-secondary font-semibold">{{totalResultados}} resultados encontrados</p>
+                    <!-- <p class="text-secondary font-normal">Ordenado por: {{sortFilter}}</p> -->
+                </div>
+
+                <!-- CONTENT GOES HERE -->
+                <div class="min-h-100">
+                    <ng-container *ngIf="!buscar; else progresShow">
+                        <ng-container *ngIf="totalResultados > 0; else noResultados">
+                            <ng-container *ngIf="tipoBusqueda === 'one'">
+                                <ng-container *ngFor="let sesion of resultados">
+                                    <!-- card -->
+                                    <div class="p-4 border border-gray-300 rounded-md flex flex-row items-center gap-3 overflow-hidden mb-3">
+                                        <!-- icon -->
+                                        <div class="flex items-center">
+                                            <button mat-icon-button [color]="'primary'">
+                                                <mat-icon class="icon-size-12" svgIcon="heroicons_solid:play-circle"></mat-icon>
+                                            </button>
+                                        </div>
+
+                                        <!-- info -->
+                                        <div class="w-full overflow-hidden">
+                                            <div class="w-full flex flex-row items-center overflow-hidden justify-between gap-3">
+                                                <h1 class="text-xl font-medium truncate ">{{sesion.sesion.nombre}}</h1>
+                                                <button mat-icon-button [color]="'primary'">
+                                                    <mat-icon class="icon-size-10" svgIcon="mat_outline:download_for_offline"></mat-icon>
+                                                </button>
+                                            </div>
+
+                                            <div class="border-2 border-primary-600 my-2"></div>
+
+                                            <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
+                                                <div>
+                                                    <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                                </div>
+                                                <div>
+                                                    <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
+                                                </div>
+                                                <div class="hidden sm:block">
+                                                    <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                                </div>
+
+                                                <div>
+                                                    <button class="border border-solid border-primary-600 text-primary hover:bg-primary-500 hover:text-white font-bold" mat-button [routerLink]="['./sesion', sesion.sesion.clavePrincipal]" queryParamsHandling="merge" routerLinkActive="router-link-active" >
+                                                        Detalles
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-full flex justify-end mt-2" *ngIf="sesion.coincidencias">
+                                                <h2 class="text-lg font-semibold">Coincidencias: <span class="font-medium">{{sesion.coincidencias}}</span></h2>
+                                            </div>
+
+                                            <!-- <div class="w-full flex justify-end mt-2">
+
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngIf="tipoBusqueda === 'all'">
+                                <ng-container *ngFor="let item of resultados">
+                                    <!-- contenedor comision -->
+                                    <div class="w-full flex flex-col border-2 p-4 rounded-xl">
+                                        <!-- comision data -->
+                                        <div class="flex flex-row items-center gap-2">
+                                            <!-- icon -->
+                                            <div class="flex items-start">
+                                                <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                                            </div>
+
+                                            <!-- titulo -->
+                                            <div class="">
+                                                <h3 class="text-2xl font-semibold text-black">{{item.comision.title}}</h3>
+                                                <h4 class="text-xl font-medium text-black">{{item.comision.theme}}</h4>
+                                            </div>
+                                        </div>
+
+                                        <!-- contador audiencias -->
+                                        <div class="w-full flex justify-end">
+                                            <p class="text-lg font-semibold text-black">Sesiones encontradas: <span class="font-medium">{{item.sesiones.length}}</span></p>
+                                        </div>
+
+                                        <!-- sesiones data -->
+                                        <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                                            <ng-container *ngFor="let sesion of item.sesiones.slice(0, 4)">
+                                                <!-- card -->
+                                                <div class="p-4 border border-gray-300 rounded-md flex flex-row items-center gap-3 overflow-hidden">
+                                                    <!-- icon -->
+                                                    <div class="flex items-center">
+                                                        <button mat-icon-button [color]="'primary'">
+                                                            <mat-icon class="icon-size-12" svgIcon="heroicons_solid:play-circle"></mat-icon>
+                                                        </button>
+                                                    </div>
+
+                                                    <!-- info -->
+                                                    <div class="w-full overflow-hidden">
+                                                        <div class="w-full flex flex-row items-center overflow-hidden justify-between gap-3">
+                                                            <h1 class="text-xl font-medium truncate ">{{sesion.nombre}}</h1>
+                                                        </div>
+
+                                                        <div class="border-2 border-primary-600 my-2"></div>
+
+                                                        <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
+                                                            <div>
+                                                                <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                                            </div>
+                                                            <div class="hidden sm:block">
+                                                                <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                                            </div>
+
+                                                            <div>
+                                                                <button class="border border-solid border-primary-600 text-primary hover:bg-primary-500 hover:text-white font-bold" mat-button [routerLink]="['./sesion', sesion.clavePrincipal]" queryParamsHandling="merge" routerLinkActive="router-link-active" >
+                                                                    Detalles
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- <div class="w-full flex justify-end mt-2">
+
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </ng-container>
+                                        </div>
+
+                                        <!-- coincidencias -->
+                                        <div class="w-full flex justify-between items-center mt-2">
+                                            <button mat-button class="border border-solid rounded-md border-primary-600 text-primary text-lg" [routerLink]="['/inicio-portal/2', item.comision.id]" [queryParams]="{busqueda: 'presidente'}">
+                                                Ver mas...
+                                            </button>
+                                            <h2 class="text-lg font-semibold">Coincidencias: <span class="font-medium">{{item.coincidencias}}</span></h2>
+                                        </div>
+                                    </div>
+                                </ng-container>
+
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #noResultados>
+                            <div class="w-full text-center p-10">
+                                <h1 class="text-2xl font-bold">No hay resultados para mostrar.</h1>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                    <ng-template #progresShow>
+                        <div class="w-full flex justify-center p-5">
+                            <mat-spinner [diameter]="40"></mat-spinner>
+                        </div>
+                    </ng-template>
+                    <mat-paginator class="bg-transparent" [length]="totalResultados" [pageIndex]="page" [pageSize]="limit" [showFirstLastButtons]="true" (page)="handlePageChangeEvent($event)"></mat-paginator>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

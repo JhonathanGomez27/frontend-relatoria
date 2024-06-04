@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { hasRoleGuard } from './core/auth/guards/has-role.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -53,16 +54,16 @@ export const appRoutes: Route[] = [
     },
 
     // Landing routes
-    {
-        path: '',
-        component: LayoutComponent,
-        data: {
-            layout: 'empty'
-        },
-        children: [
-            // {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
-        ]
-    },
+    // {
+    //     path: '',
+    //     component: LayoutComponent,
+    //     data: {
+    //         layout: 'empty'
+    //     },
+    //     children: [
+    //         {path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes')},
+    //     ]
+    // },
 
     // Admin routes
     {
@@ -74,11 +75,42 @@ export const appRoutes: Route[] = [
             initialData: initialDataResolver
         },
         children: [
-            {path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes')},
-            {path: 'inicio-portal', loadChildren: () => import('app/modules/admin/inicio-portal/inicio-portal.routes')},
-            {path: 'busqueda', loadChildren: () => import('app/modules/admin/busqueda/busqueda.routes')},
-            {path: 'usuarios', loadChildren: () => import('app/modules/admin/usuarios/usuarios.routes')},
-            {path: 'logs', loadChildren: () => import('app/modules/admin/logs/logs.routes')},
+            {
+                path: 'inicio-portal',
+                canActivate: [hasRoleGuard],
+                data: {
+                    expectedRole: ['admin', 'relator']
+                },
+                loadChildren: () => import('app/modules/admin/inicio-portal/inicio-portal.routes')
+            },
+            {
+                path: 'busqueda',
+                canActivate: [hasRoleGuard],
+                data: {
+                    expectedRole: ['admin', 'relator']
+                },
+                loadChildren: () => import('app/modules/admin/busqueda/busqueda.routes')
+            },
+            {
+                path: 'usuarios',
+                canActivate: [hasRoleGuard],
+                data: {
+                    expectedRole: ['admin']
+                },
+                loadChildren: () => import('app/modules/admin/usuarios/usuarios.routes')
+            },
+            {
+                path: 'logs',
+                canActivate: [hasRoleGuard],
+                data: {
+                    expectedRole: ['admin']
+                },
+                loadChildren: () => import('app/modules/admin/logs/logs.routes')
+            },
+            {
+                path: '**',
+                redirectTo: 'inicio-portal'
+            }
         ]
     }
 ];

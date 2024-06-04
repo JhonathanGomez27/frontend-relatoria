@@ -3,12 +3,37 @@ import { FuseNavigationItem } from '@fuse/components/navigation';
 
 export const defaultNavigation: FuseNavigationItem[] = [
     {
-        id   : 'example',
-        title: 'Example',
+        id   : 'inicio-portal',
+        title: 'Inicio',
         type : 'basic',
-        icon : 'heroicons_outline:chart-pie',
-        link : '/example'
-    }
+        icon : 'heroicons_outline:home',
+        link : '/inicio-portal',
+        roles: ['admin', 'relator']
+    },
+    {
+        id   : 'usuarios',
+        title: 'Usuarios',
+        type : 'basic',
+        icon : 'heroicons_outline:cog-6-tooth',
+        link : '/usuarios',
+        roles: ['admin']
+    },
+    {
+        id   : 'logs',
+        title: 'Logs',
+        type : 'basic',
+        icon : 'heroicons_outline:newspaper',
+        link : '/logs',
+        roles: ['admin']
+    },
+    {
+        id   : 'busqueda',
+        title: 'Busqueda',
+        type : 'basic',
+        icon : 'heroicons_outline:magnifying-glass',
+        link : '/busqueda',
+        roles: ['admin', 'relator']
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -34,27 +59,31 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         title: 'Inicio',
         type : 'basic',
         icon : 'heroicons_outline:home',
-        link : '/inicio-portal'
+        link : '/inicio-portal',
+        roles: ['admin', 'relator']
     },
     {
         id   : 'usuarios',
         title: 'Usuarios',
         type : 'basic',
         icon : 'heroicons_outline:cog-6-tooth',
-        link : '/usuarios'
+        link : '/usuarios',
+        roles: ['admin']
     },
     {
         id   : 'logs',
         title: 'Logs',
         type : 'basic',
         icon : 'heroicons_outline:newspaper',
-        link : '/logs'
+        link : '/logs',
+        roles: ['admin']
     },
     {
         id   : 'busqueda',
         title: 'Busqueda',
         type : 'basic',
         icon : 'heroicons_outline:magnifying-glass',
-        link : '/busqueda'
+        link : '/busqueda',
+        roles: ['admin', 'relator']
     },
 ];

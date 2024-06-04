@@ -1,0 +1,110 @@
+<div class="w-full md:absolute inset-0 flex flex-col min-w-0 md:overflow-hidden md:flex-row">
+    <!-- Main -->
+    <div class="flex-auto p-2 md:p-8 md:overflow-y-auto bg-card md:w-1/2" cdkScrollable>
+        <!-- Breadcrumbs -->
+        <div class="flex flex-wrap items-center font-medium mb-2">
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <a class="ml-1 text-primary-500" [routerLink]="['/inicio-portal']">Comisiones</a>
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                <a class="ml-1 text-primary-500" [routerLink]="['../']" queryParamsHandling="merge">Comisión Primera de la Cámara de Representantes</a>
+            </div>
+            <div class="flex items-center ml-1 whitespace-nowrap">
+                <mat-icon
+                    class="icon-size-5 text-secondary"
+                    [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
+                <a class="ml-1 text-primary-500" >{{audiencia.nombre}}</a>
+            </div>
+        </div>
+
+        <!-- back button -->
+        <div class="flex">
+            <a class="cursor-pointer p-2 flex items-center rounded-none bg-gray-100 text-lg" mat-flat-button [routerLink]="['../']" queryParamsHandling="merge">
+                <mat-icon class="text-current icon-size-4 mr-5" [svgIcon]="'mat_outline:arrow_back_ios'"></mat-icon>&nbsp; Volver
+            </a>
+        </div>
+
+        <!-- video player -->
+        <div class="w-full flex mt-2">
+            <video id="myVideo" controls="controls" preload="metadata" webkit-playsinline="webkit-playsinline" [muted]="false" class="w-full" #videoPlayer>
+                <source [src]="videoUrl" type="video/mp4" />
+            </video>
+        </div>
+
+        <!-- info programa -->
+        <div class="w-full flex flex-col mt-3">
+            <h1 class="text-2xl font-bold text-primary-600 tracking-wide">{{audiencia.nombre | titlecase}}</h1>
+        </div>
+
+        <div class="border-2 border-primary my-4"></div>
+
+        <div class="w-full my-4 flex flex-row gap-3">
+            <!-- audio player -->
+            <div class="w-full">
+                <audio controls class="w-full">
+                    <source [src]="audioUrl" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- xml button -->
+            <div class="flex">
+                <img class="w-12 cursor-pointer" matTooltip="Descargar archivo XML" src="./assets/icons/xml-icon.svg" alt="Icono xml">
+            </div>
+        </div>
+
+        <!-- descargas -->
+        <div class="w-full">
+            <h2 class="text-center font-semibold text-lg">Descargas</h2>
+
+            <div class="grid grid-cols-3 gap-3 w-full mt-4 p-6">
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                    <img class="w-12" src="./assets/icons/word-icon.svg" alt="Icono word">
+                    <h3 class="mt-2 font-medium text-base text-center">Descargar Word</h3>
+                </div>
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                    <img class="w-12" src="./assets/icons/pdf-icon.svg" alt="Icono pdf">
+                    <h3 class="mt-2 font-medium text-base text-center">Descargar PDF</h3>
+                </div>
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                    <img class="w-12" src="./assets/icons/music-icon.svg" alt="Icono Audio">
+                    <h3 class="mt-2 font-medium text-base text-center">Descargar Audio</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-2 md:overflow-y-auto bg-card md:w-1/2" cdkScrollable>
+
+        <!-- CONTENT GOES HERE -->
+        <div class="min-h-100 ">
+            <!-- serach box -->
+            <div class="w-full">
+                <mat-form-field class="w-full " [subscriptSizing]="'dynamic'">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'" matPrefix></mat-icon>
+                    <input matInput placeholder="Realizar búsqueda" [formControl]="searchControl">
+                </mat-form-field>
+            </div>
+
+            <!-- content -->
+            <div class="w-full border mt-3 min-h-100">
+                <ng-container *ngFor="let item of subtitulos">
+                    <ng-container *ngIf="item.textoOriginal !== ''">
+                        <div class="w-full p-3 cursor-pointer hover:bg-zinc-100 hover:shadow-md" [ngClass]="{'bg-zinc-300': item.clavePrincipal === subtituloActual}" (click)="setCurTime(item.tiempo_Inicio)">
+                            <a class="text-black font-semibold">Minuto {{item.minuto}}: </a>
+                            <p class="text-secondary" [innerHTML]="transformarData(item.textoOriginal) | sanitizeHtml">
+                            <!-- <p class="text-secondary">
+                                {{item.textoOriginal}} -->
+                            </p>
+                        </div>
+                    </ng-container>
+                </ng-container>
+                <mat-paginator class="bg-transparent" [length]="totalResponse" [pageIndex]="page" [pageSize]="20" [showFirstLastButtons]="true" (page)="handlePageEnvent($event)"></mat-paginator>
+            </div>
+        </div>
+    </div>
+</div>

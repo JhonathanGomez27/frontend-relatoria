@@ -31,66 +31,23 @@
 
             <!-- contenido -->
             <div class="w-full grid grid-cols-2 lg:grid-cols-4 md:grid-cols-3 gap-3 mt-7">
-                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./general']" routerLinkActive="router-link-active" >
-                    <!-- imagen -->
-                    <div class="w-full flex justify-center">
-                        <img class="h-40 w-full rounded-t-md" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
-                    </div>
-                    <!-- descripcion -->
-                    <div class="w-full flex items-center  h-20 px-4">
-                        <div>
-                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                <ng-container *ngFor="let item of tipos_comisiones">
+                    <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./', item.id]" routerLinkActive="router-link-active" >
+                        <!-- imagen -->
+                        <div class="w-full flex justify-center">
+                            <img class="h-40 w-full rounded-t-md" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
                         </div>
-                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
-                            Sesiones Plenarias Salón Elíptico
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./constitucionales']" routerLinkActive="router-link-active">
-                    <!-- imagen -->
-                    <div class="w-full flex justify-center">
-                        <img class="h-40 w-full rounded-t-md co" src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Sal%C3%B3n_El%C3%ADptico_-_Palacio_Federal_Legislativo.jpg" alt="">
-                    </div>
-                    <!-- descripcion -->
-                    <div class="w-full flex items-center  h-20 px-4">
-                        <div>
-                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
-                        </div>
-                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
-                            Comisiones Constitucionales
+                        <!-- descripcion -->
+                        <div class="w-full flex items-center  h-20 px-4">
+                            <div>
+                                <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                            </div>
+                            <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
+                                {{item.title}}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./legales']" routerLinkActive="router-link-active">
-                    <!-- imagen -->
-                    <div class="w-full flex justify-center">
-                        <img class="h-40 w-full rounded-t-md co" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
-                    </div>
-                    <!-- descripcion -->
-                    <div class="w-full flex items-center  h-20 px-4">
-                        <div>
-                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
-                        </div>
-                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
-                            Comisiones Legales
-                        </div>
-                    </div>
-                </div>
-                <div class="w-full shadow-lg rounded-md hover:shadow-2xl cursor-pointer" [routerLink]="['./especiales']" routerLinkActive="router-link-active">
-                    <!-- imagen -->
-                    <div class="w-full flex justify-center">
-                        <img class="h-40 w-full rounded-t-md co" src="https://caracoltv.brightspotcdn.com/dims4/default/127cf1d/2147483647/strip/true/crop/1000x716+0+0/resize/1000x716!/quality/90/?url=http%3A%2F%2Fcaracol-brightspot.s3.us-west-2.amazonaws.com%2F1f%2Fba%2Fa0830803495fb74592243100ca4a%2Fsalon-eliptico.jpg" alt="">
-                    </div>
-                    <!-- descripcion -->
-                    <div class="w-full flex items-center  h-20 px-4">
-                        <div>
-                            <mat-icon svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
-                        </div>
-                        <div class="w-full text-center justify-center text-primary-600 font-bold text-lg">
-                            Comisiones Especiales
-                        </div>
-                    </div>
-                </div>
+                </ng-container>
             </div>
         </div>
 
