@@ -139,28 +139,15 @@ export class AuthService
     signOut(): Observable<any>
     {
 
-        // Sign out
-        return this._httpClient.get(`${this._urlLogOut}usuarios/logout`).pipe(
-            catchError(() =>
+        this._userService.user = null;
 
-                // Return false
-                of(false),
-            ),
-            switchMap((response: any) =>
-            {
-                this._userService.user = null;
-
-                // Remove the access token from the local storage
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-
-                // Set the authenticated flag to false
-                this._authenticated = false;
-
-                // Return the observable
-                return of(true);
-            }),
-        );
+        // Remove the access token from the local storage
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken')
+        // Set the authenticated flag to false
+        this._authenticated = false
+        // Return the observable
+        return of(true);
     }
 
     /**
@@ -208,5 +195,9 @@ export class AuthService
 
         // If the access token exists, and it didn't expire, sign in using it
         return this.signInUsingToken();
+    }
+
+    closeSession(): Observable<any> {
+        return this._httpClient.get(`${this._urlLogOut}usuarios/logout`);
     }
 }

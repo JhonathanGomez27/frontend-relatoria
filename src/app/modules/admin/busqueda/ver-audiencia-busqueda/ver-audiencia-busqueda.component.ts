@@ -45,7 +45,7 @@ export class VerAudienciaBusquedaComponent {
 
     initital: string = 'init';
 
-    videoUrl: any = 'http://3.18.149.205/assets/videos/f40503c5-9ad4-414e-ae6e-324e351349eb/undefined/pp_an-23a01-c.mp4';
+    videoUrl: any = '';
     audioUrl: any = '';
 
     limit: any = environment.pagination;

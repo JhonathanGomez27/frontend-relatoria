@@ -1,0 +1,152 @@
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <div class="p-6 bg-white w-full flex justify-between">
+        <div class="flex flex-row gap-3 items-center">
+            <a class="cursor-pointer p-2 flex items-center rounded-none bg-gray-100 " mat-flat-button [routerLink]="['../../']"  [queryParams]="{busqueda: this.searchControl.value, page: 1}">
+                <mat-icon class="text-current icon-size-4 mr-2" [svgIcon]="'mat_outline:arrow_back_ios'"></mat-icon>
+                Volver
+            </a>
+            <!-- <h2 class="sm:text-4xl font-semibold text-primary-700 text-2xl">Busqueda</h2> -->
+        </div>
+        <div class="flex items-center md:hidden">
+            <button mat-icon-button (click)="matDrawer.toggle()">
+                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+            </button>
+        </div>
+    </div>
+
+    <mat-drawer-container class="flex-auto h-full">
+        <!-- Drawer -->
+        <mat-drawer class="w-80 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
+            <!-- info comision -->
+            <div class="w-full px-8">
+                <!-- icon -->
+                <div class="">
+                    <mat-icon class="icon-size-10" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                </div>
+
+                <!-- title -->
+                <div class="w-full text-left justify-center text-black font-bold text-xl mt-2">
+                    {{comision.title}}
+                </div>
+
+                <!-- mesa directiva -->
+                <div class="w-full text-left justify-center text-black font-medium text-lg mt-2">
+                    Mesa Directiva:
+                </div>
+
+                <!-- integrantes -->
+                <div class="w-full text-left justify-center text-black text-lg mt-2">
+                    <h2 class="font-semibold mb-2">Presidente: <span class="font-normal">{{comision.presidente}}</span></h2>
+                    <h2 class="font-semibold mb-2">Vicepresidenta: <span class="font-normal">{{comision.vicepresidente}}</span></h2>
+                    <h2 class="font-semibold mb-2">Secretaria: <span class="font-normal">{{comision.secretario}}</span></h2>
+                    <h2 class="font-semibold mb-2">Subsecretaria: <span class="font-normal">{{comision.subsecretario}}</span></h2>
+
+                </div>
+            </div>
+        </mat-drawer>
+
+        <!-- Drawer content -->
+        <mat-drawer-content class="flex flex-col bg-white">
+            <!-- Main -->
+            <div class="flex-auto px-6 sm:px-10">
+                <!-- serach box -->
+                <div class="w-full mb-4 flex flex-row gap-2 items-center">
+                    <mat-form-field class="w-full " [subscriptSizing]="'dynamic'">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'" matPrefix></mat-icon>
+                        <input matInput placeholder="Realizar búsqueda" [formControl]="searchControl">
+                    </mat-form-field>
+
+                    <button class="sm:inline-flex" mat-button [matMenuTriggerFor]="orderByMenu" [disabled]="buscar">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bars-arrow-down'"></mat-icon>
+                        <span class="hidden sm:inline-block ml-2">Ordenar</span>
+                    </button>
+                    <mat-menu #orderByMenu="matMenu">
+                        <button mat-menu-item (click)="sortByOnChange('Alfabeticamente: Ascendente', 'nombre', 'ASC')">
+                            <span class="flex items-center">
+                                <span>Alfabeticamente: Ascendente</span>
+                            </span>
+                        </button>
+                        <button mat-menu-item (click)="sortByOnChange('Alfabeticamente: Descendente', 'nombre', 'DESC')">
+                            <span class="flex items-center">
+                                <span>Alfabeticamente: Descendente</span>
+                            </span>
+                        </button>
+                        <button mat-menu-item (click)="sortByOnChange('Mas Recientes', 'fecha', 'DESC')">
+                            <span class="flex items-center">
+                                <span>Mas Recientes</span>
+                            </span>
+                        </button>
+                        <button mat-menu-item (click)="sortByOnChange('Mas Antiguos', 'fecha', 'ASC')">
+                            <span class="flex items-center">
+                                <span>Mas Antiguos</span>
+                            </span>
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div class="flex w-full justify-between mb-5">
+                    <p class="text-secondary font-normal">Ordenado por: {{sortFilter}}</p>
+                </div>
+
+                <!-- contenedor sesiones -->
+                <div class="w-full">
+                    <ng-container *ngFor="let sesion of resultados">
+                        <!-- card -->
+                        <div class="p-4 border border-gray-300 rounded-md flex flex-row items-center gap-3 overflow-hidden mb-3">
+                            <!-- icon -->
+                            <div class="flex items-center">
+                                <button mat-icon-button [color]="'primary'">
+                                    <mat-icon class="icon-size-12" svgIcon="heroicons_solid:play-circle"></mat-icon>
+                                </button>
+                            </div>
+
+                            <!-- info -->
+                            <div class="w-full overflow-hidden">
+                                <div class="w-full flex flex-row items-center overflow-hidden justify-between gap-3">
+                                    <h1 class="text-xl font-medium truncate ">{{sesion.sesion.nombre}}</h1>
+                                    <button mat-icon-button [color]="'primary'">
+                                        <mat-icon class="icon-size-10" svgIcon="mat_outline:download_for_offline"></mat-icon>
+                                    </button>
+                                </div>
+
+                                <div class="border-2 border-primary-600 my-2"></div>
+
+                                <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
+                                    <div>
+                                        <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
+                                    </div>
+                                    <div class="hidden sm:block">
+                                        <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                    </div>
+
+                                    <div>
+                                        <button class="border border-solid border-primary-600 text-primary hover:bg-primary-500 hover:text-white font-bold" mat-button [routerLink]="['/busqueda/sesion', sesion.sesion.clavePrincipal]" queryParamsHandling="merge" routerLinkActive="router-link-active" >
+                                            Detalles
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex justify-end mt-2" *ngIf="sesion.coincidencias">
+                                    <h2 class="text-lg font-semibold">Coincidencias: <span class="font-medium">{{sesion.coincidencias}}</span></h2>
+                                </div>
+
+                                <!-- <div class="w-full flex justify-end mt-2">
+
+                                </div> -->
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- content -->
+                <div class="w-full mt-3 flex justify-end">
+                    <mat-paginator [disabled]="buscar" class="bg-transparent" [length]="totalResultados" [pageIndex]="page" [pageSize]="limit" [showFirstLastButtons]="true" (page)="handlePageEnvent($event)"></mat-paginator>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

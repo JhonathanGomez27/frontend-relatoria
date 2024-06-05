@@ -149,6 +149,7 @@ export class BusquedaComponent implements OnInit, OnDestroy {
             if (value !== '') {
                 // this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: value }, queryParamsHandling: 'merge'});
                 if (!this.buscar) {
+                    this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { page: 1 }, queryParamsHandling: 'merge'});
                     this.aplicarFiltro(0);
                 }
                 // console.log("object");
@@ -254,7 +255,8 @@ export class BusquedaComponent implements OnInit, OnDestroy {
     // Pagination
     //-----------------------------------
     handlePageChangeEvent(event: PageEvent): void {
-
+        this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { page: event.pageIndex }, queryParamsHandling: 'merge'});
+        this.aplicarFiltro(event.pageIndex);
     }
 
     //-----------------------------------

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentChecked, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -8,6 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FuseValidators } from '@fuse/validators';
+import { UsuariosService } from '../../usuarios.service';
+import { Subject, takeUntil } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-usuario-modal',
@@ -15,49 +18,179 @@ import { FuseValidators } from '@fuse/validators';
     standalone: true,
     imports: [CommonModule, MatDialogModule, MatButtonModule, MatIconModule, FormsModule, MatFormFieldModule, ReactiveFormsModule, MatInputModule, MatSelectModule]
 })
-export class UsuarioModalComponent implements OnInit {
+export class UsuarioModalComponent implements OnInit, OnDestroy {
+
+    private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     title: string = '';
     usuarioForm: FormGroup;
 
-    comisiones: any[] = [
-        { value: '1', viewValue: 'Comisión 1' },
-        { value: '2', viewValue: 'Comisión 2' },
-        { value: '3', viewValue: 'Comisión 3' },
-    ];
+    comisiones: any[] = [];
 
     showData: boolean = false;
+
+    usuario: any = {};
+
+    Toast: any;
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialogRef: MatDialogRef<UsuarioModalComponent>,
         private _formBuilder: FormBuilder,
-        private _changeDetectorRef: ChangeDetectorRef
+        private _changeDetectorRef: ChangeDetectorRef,
+        private _usuariosService: UsuariosService,
     ) {
+        this.Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            },
+        });
     }
 
     ngOnInit(): void {
+        this._usuariosService.comisiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
+            this.comisiones = response.data;
+            this._changeDetectorRef.markForCheck();
+        });
+
         this.title = this.data.title;
 
         this.usuarioForm = this._formBuilder.group({
                 nombre: ['', Validators.required],
                 apellido: ['', Validators.required],
-                correo: ['', [Validators.required, Validators.email]],
+                correo: ['', Validators.compose([Validators.required, Validators.email])],
                 comision: ['', Validators.required],
                 rol: ['', Validators.required],
-                password: ['', Validators.required],
+                password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
                 passwordConfirm: ['', Validators.required],
             },{
                 validators: FuseValidators.mustMatch('password', 'passwordConfirm'),
             },
         );
+
+        // this.usuarioForm.reset();
+        if(this.data.action === 'edit') {
+            this.usuario = this.data.usuario;
+            const usuario = this.data.usuario;
+            let data = {
+                nombre: usuario.nombre,
+                apellido: usuario.apellido,
+                correo: usuario.email,
+                comision: usuario.comision_id,
+                rol: usuario.rol,
+                password: '',
+                passwordConfirm: '',
+            }
+
+            this.usuarioForm.patchValue(data);
+        }
+    }
+
+    ngOnDestroy(): void {
+        this._unsubscribeAll.next(null);
+        this._unsubscribeAll.complete();
     }
 
     cerrarDialogo() {
-        this.dialogRef.close();
+        this.dialogRef.close('cancelar');
     }
 
     guardarUsuario() {
-        this.dialogRef.close('guardar');
+        if(!this.usuarioForm.valid) {
+            this.Toast.fire({
+                icon: 'error',
+                title: "Debes completar todos los campos."
+            });
+            return;
+        }
+
+        this.usuarioForm.disable();
+
+        const usuario = this.usuarioForm.value;
+
+        let data = {
+            email: usuario.correo,
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            comision_id: usuario.comision,
+            rol: usuario.rol,
+            password: usuario.password,
+        }
+
+        if(data.rol === 'admin') {
+            delete data.comision_id
+        }
+
+        if(this.data.action === 'create') {
+            this.crearUsuario(data);
+        }else{
+            this.editarUsuario(data);
+        }
+        // this.crearUsuario(data);
+    }
+
+    crearUsuario(data:any) {
+        this._usuariosService.createUsuario(data).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+            (response:any) => {
+                if(response.ok){
+                    this.Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                    this.dialogRef.close('exito');
+                }else{
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
+
+                    this.usuarioForm.enable();
+                }
+            },(error) => {
+                this.Toast.fire({
+                    icon: 'error',
+                    title: error.error.message
+                });
+
+                this.usuarioForm.enable();
+
+            }
+        );
+    }
+
+    editarUsuario(data:any) {
+        this._usuariosService.updateUsuario(data, this.usuario.id).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+            (response:any) => {
+                if(response.ok){
+                    this.Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                    this.dialogRef.close('exito');
+                }else{
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
+
+                    this.usuarioForm.enable();
+
+                }
+            },(error) => {
+                this.Toast.fire({
+                    icon: 'error',
+                    title: error.error.message
+                });
+
+                this.usuarioForm.enable();
+
+            }
+        );
     }
 }

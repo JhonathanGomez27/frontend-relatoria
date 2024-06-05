@@ -19,18 +19,17 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet,} from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { InicioPortalService } from '../inicio-portal.service';
 import { environment } from 'environments/environment';
+import { BusquedaService } from '../busqueda.service';
 
 @Component({
-    selector: 'app-ver-sesion',
-    templateUrl: 'ver-sesion.component.html',
-    standalone: true,
-    imports: [CommonModule, MatSidenavModule, MatRippleModule, NgClass, MatIconModule, NgIf, NgFor, MatButtonModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatRadioModule, FormsModule, MatDatepickerModule, MatSelectModule, TitleCasePipe, MatMenuModule, MatPaginatorModule, RouterOutlet, RouterLink, ReactiveFormsModule, MatProgressSpinnerModule,],
-    encapsulation: ViewEncapsulation.None,
+  selector: 'app-ver-comision-busqueda',
+  standalone: true,
+  imports: [CommonModule, MatSidenavModule, MatRippleModule, NgClass, MatIconModule, NgIf, NgFor, MatButtonModule, MatFormFieldModule, MatInputModule, MatCheckboxModule, MatRadioModule, FormsModule, MatDatepickerModule, MatSelectModule, TitleCasePipe, MatMenuModule, MatPaginatorModule, RouterOutlet, RouterLink, ReactiveFormsModule, MatProgressSpinnerModule,],
+  templateUrl: './ver-comision-busqueda.component.html',
+  encapsulation: ViewEncapsulation.None,
 })
-
-export class VerSesionComponent implements OnInit, OnDestroy {
+export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
 
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
@@ -59,21 +58,18 @@ export class VerSesionComponent implements OnInit, OnDestroy {
 
     constructor(
         private titleService: Title,
-        private location: Location,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
-        private _adapter: DateAdapter<any>,
-        private _formBuilder: UntypedFormBuilder,
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private _inicioPortalService: InicioPortalService
+        private _busquedaService: BusquedaService
     ) {
-
+        this.titleService.setTitle('Relatoría | Comision');
     }
 
     ngOnInit(): void {
 
-        this._inicioPortalService.sesiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
+        this._busquedaService.sesiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
             this.resultados = response.resultados;
             this.totalResultados = response.total;
             this.comision = response.comision;
@@ -91,8 +87,8 @@ export class VerSesionComponent implements OnInit, OnDestroy {
             }
 
             if (params.busqueda && this.initial === 'init') {
-                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }});
                 this.searchControl.setValue(params.busqueda);
+                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }});
             }
 
             // if(this.initial === 'init'){
@@ -188,9 +184,9 @@ export class VerSesionComponent implements OnInit, OnDestroy {
 
         data.filtroOrdenamiendo = filtroOrdenamiendo;
 
-        this._inicioPortalService.getAudienciasPorSesionBusqueda(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        this._busquedaService.getAudienciasPorSesionBusqueda(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (response:any) => {
-                this._inicioPortalService.sesiones = response;
+                this._busquedaService.sesiones = response;
 
                 this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: data.palabraClave }, queryParamsHandling: 'merge'});
 
@@ -210,9 +206,9 @@ export class VerSesionComponent implements OnInit, OnDestroy {
                 direccion: this.orden
             }
         }
-        this._inicioPortalService.getSesionesPorComisionPaginated(this.comision.id, pagina, data).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        this._busquedaService.getSesionesPorComisionPaginated(this.comision.id, pagina, data).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (response:any) => {
-                this._inicioPortalService.sesiones = response;
+                this._busquedaService.sesiones = response;
 
                 this.buscar = false;
                 this._changeDetectorRef.markForCheck();

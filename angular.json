@@ -33,7 +33,8 @@
                             "crypto-js/enc-base64",
                             "flat",
                             "quill",
-                            "moment"
+                            "moment",
+                            "sweetalert2"
                         ],
                         "assets": [
                             "src/favicon-16x16.png",

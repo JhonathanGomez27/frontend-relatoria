@@ -22,3 +22,28 @@ export const getTranscripcionAudienciaBusqueda: ResolveFn<any> = (route: Activat
 
     return inject(BusquedaService).getTranscripcionAudiencia(id, '1');
 }
+
+
+export const getComisionesBusquedaResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+    let comision = ''
+    let page:any = '1';
+    let claveBusqueda = '';
+
+    if(route.paramMap.has('id')){
+        comision = route.paramMap.get('id');
+    }
+
+    if(route.queryParamMap.has('page')){
+       page = route.queryParamMap.get('page');
+    }
+
+    if(route.queryParamMap.has('busqueda')){
+        claveBusqueda = route.queryParamMap.get('busqueda') || '';
+    }
+
+    if(claveBusqueda !== ''){
+        return inject(BusquedaService).getAudienciasPorSesionBusqueda({palabraClave: claveBusqueda, comisionId: comision}, page);
+    }
+
+    return inject(BusquedaService).getSesionesPorComision(comision, page);
+}

@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="flex w-full justify-between px-5 py-2">
-                    <p class="text-secondary font-semibold">{{totalResultados}} resultados encontrados</p>
+                    <p class="text-secondary font-semibold">{{totalResultados}} Sesiones encontradas y {{totalComisiones}} comisiones encontradas.</p>
                     <!-- <p class="text-secondary font-normal">Ordenado por: {{sortFilter}}</p> -->
                 </div>
 
@@ -129,9 +129,31 @@
                             </ng-container>
 
                             <ng-container *ngIf="tipoBusqueda === 'all'">
+
+                                <div class="grid grid-cols-2 md:grid-cols-3 mb-4 gap-3">
+                                    <ng-container *ngFor="let item of comisionesBusqueda">
+                                        <!-- card -->
+                                        <div class="w-full border-2 p-4 rounded-xl cursor-pointer hover:shadow-xl" [routerLink]="['./comision', item.id]" [queryParams]="{busqueda: this.searchControl.value}">
+                                            <!-- comision data -->
+                                            <div class="flex flex-row items-center gap-2">
+                                                <!-- icon -->
+                                                <div class="flex items-start">
+                                                    <mat-icon class="icon-size-12" svgIcon="heroicons_outline:building-library" [color]="'primary'"></mat-icon>
+                                                </div>
+
+                                                <!-- titulo -->
+                                                <div class="">
+                                                    <h3 class="text-2xl font-semibold text-black">{{item.title}}</h3>
+                                                    <h4 class="text-xl font-medium text-black">{{item.theme}}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
                                 <ng-container *ngFor="let item of resultados">
                                     <!-- contenedor comision -->
-                                    <div class="w-full flex flex-col border-2 p-4 rounded-xl">
+                                    <div class="w-full flex flex-col border-2 p-4 rounded-xl hover:shadow-xl">
                                         <!-- comision data -->
                                         <div class="flex flex-row items-center gap-2">
                                             <!-- icon -->
@@ -196,7 +218,7 @@
 
                                         <!-- coincidencias -->
                                         <div class="w-full flex justify-between items-center mt-2">
-                                            <button mat-button class="border border-solid rounded-md border-primary-600 text-primary text-lg" [routerLink]="['/inicio-portal/2', item.comision.id]" [queryParams]="{busqueda: 'presidente'}">
+                                            <button mat-button class="border border-solid rounded-md border-primary-600 text-primary text-lg" [routerLink]="['./comision', item.comision.id]" [queryParams]="{busqueda: this.searchControl.value}">
                                                 Ver mas...
                                             </button>
                                             <h2 class="text-lg font-semibold">Coincidencias: <span class="font-medium">{{item.coincidencias}}</span></h2>

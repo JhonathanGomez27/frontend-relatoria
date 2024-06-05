@@ -39,12 +39,15 @@ export class AuthSignOutComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Sign out
-        this._authService.signOut().subscribe(
-            ()=> {
 
+        // Sign out
+        this._authService.closeSession().subscribe(
+            (response: any)=> {
+                this._authService.signOut();
             },
-            (response)=> {
+            (error)=> {
+                // console.log("Error signing out");
+                this._authService.signOut();
             }
         );
 

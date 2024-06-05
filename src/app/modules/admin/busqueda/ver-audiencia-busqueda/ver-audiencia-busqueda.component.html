@@ -10,7 +10,7 @@
                 <mat-icon
                     class="icon-size-5 text-secondary"
                     [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
-                <a class="ml-1 text-primary-500" [routerLink]="['../']" queryParamsHandling="merge">Comisión Primera de la Cámara de Representantes</a>
+                <a class="ml-1 text-primary-500" [routerLink]="['../../comision', audiencia.id_comision]" queryParamsHandling="merge">Comisión Primera de la Cámara de Representantes</a>
             </div>
             <div class="flex items-center ml-1 whitespace-nowrap">
                 <mat-icon
@@ -22,7 +22,7 @@
 
         <!-- back button -->
         <div class="flex">
-            <a class="cursor-pointer p-2 flex items-center rounded-none bg-gray-100 text-lg" mat-flat-button [routerLink]="['../../']" queryParamsHandling="merge">
+            <a class="cursor-pointer p-2 flex items-center rounded-none bg-gray-100 text-lg" mat-flat-button [routerLink]="['../../comision', audiencia.id_comision]" queryParamsHandling="merge">
                 <mat-icon class="text-current icon-size-4 mr-5" [svgIcon]="'mat_outline:arrow_back_ios'"></mat-icon>&nbsp; Volver
             </a>
         </div>

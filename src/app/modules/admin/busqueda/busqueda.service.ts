@@ -145,4 +145,63 @@ export class BusquedaService {
 
         return this._httpCliente.post(`${this.url}sesiones/buscarEnUnaSesion/${id}`, data, {params});
     }
+
+    //-----------------------------------
+    // Metodos comisiones
+    //-----------------------------------
+    getSesionesPorComision(id: string, page: any): Observable<any> {
+        let params = new HttpParams();
+        params = params.set('page', page);
+        params = params.set('limit', this.limit);
+
+        let data = {
+            filtroOrdenamiendo: {
+                campo: 'nombre',
+                direccion: 'ASC'
+            }
+        }
+
+        return this._httpCliente.post(`${this.url}comisiones/getSesionesPorComision/${id}`, data, {params}).pipe(
+            tap((response: any) => {
+                this._sesiones.next(response);
+            })
+        );
+    }
+
+    getSesionesPorComisionPaginated(id: string, page: any, data:any): Observable<any> {
+        let params = new HttpParams();
+        params = params.set('page', page);
+        params = params.set('limit', this.limit);
+
+        return this._httpCliente.post(`${this.url}comisiones/getSesionesPorComision/${id}`, data, {params});
+    }
+
+    getAudienciasPorSesionBusqueda(data:any, page:any): Observable<any> {
+        let params = new HttpParams();
+        params = params.set('page', page);
+        params = params.set('limit', this.limit);
+
+
+        let filtroOrdenamiendo: {
+            campo: 'nombre',
+            direccion: 'ASC'
+        }
+
+        data.filtroOrdenamiendo = filtroOrdenamiendo;
+
+        return this._httpCliente.post(`${this.url}comisiones/buscarEnUnaComision`, data, {params}).pipe(
+            tap((response: any) => {
+                this._sesiones.next(response);
+            })
+        );
+    }
+
+    getAudienciasPorSesionBusquedaPaginated(data:any, page:any): Observable<any> {
+        console.log(page, data);
+        let params = new HttpParams();
+        params = params.set('page', page);
+        params = params.set('limit', this.limit);
+
+        return this._httpCliente.post(`${this.url}comisiones/buscarEnUnaComision`, data, {params});
+    }
 }

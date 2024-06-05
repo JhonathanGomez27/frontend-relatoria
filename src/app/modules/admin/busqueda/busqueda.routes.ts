@@ -1,7 +1,8 @@
 import { Routes } from "@angular/router";
 import { BusquedaComponent } from "./busqueda.component";
-import { getAllComisionesBusqueda, getAudienciaBusquedaResolver, getTranscripcionAudienciaBusqueda } from "./busqueda.resolver";
+import { getAllComisionesBusqueda, getAudienciaBusquedaResolver, getComisionesBusquedaResolver, getTranscripcionAudienciaBusqueda } from "./busqueda.resolver";
 import { VerAudienciaBusquedaComponent } from "./ver-audiencia-busqueda/ver-audiencia-busqueda.component";
+import { VerComisionBusquedaComponent } from "./ver-comision-busqueda/ver-comision-busqueda.component";
 
 export default [
     {
@@ -9,6 +10,13 @@ export default [
         component: BusquedaComponent,
         resolve: {
             data: getAllComisionesBusqueda
+        }
+    },
+    {
+        path: 'comision/:id',
+        component: VerComisionBusquedaComponent,
+        resolve: {
+            data: getComisionesBusquedaResolver
         }
     },
     {
