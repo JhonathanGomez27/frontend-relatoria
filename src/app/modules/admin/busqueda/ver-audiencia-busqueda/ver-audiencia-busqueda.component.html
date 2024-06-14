@@ -52,7 +52,7 @@
 
             <!-- xml button -->
             <div class="flex">
-                <img class="w-12 cursor-pointer" matTooltip="Descargar archivo XML" src="./assets/icons/xml-icon.svg" alt="Icono xml">
+                <img class="w-12 cursor-pointer" matTooltip="Descargar archivo XML" src="./assets/icons/xml-icon.svg" alt="Icono xml" (click)="descargarArchivoXml()">
             </div>
         </div>
 
@@ -61,15 +61,15 @@
             <h2 class="text-center font-semibold text-lg">Descargas</h2>
 
             <div class="grid grid-cols-3 gap-3 w-full mt-4 p-6">
-                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md" (click)="descargarArchivoWord()">
                     <img class="w-12" src="./assets/icons/word-icon.svg" alt="Icono word">
                     <h3 class="mt-2 font-medium text-base text-center">Descargar Word</h3>
                 </div>
-                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md" (click)="descargarArchivoPdf()">
                     <img class="w-12" src="./assets/icons/pdf-icon.svg" alt="Icono pdf">
                     <h3 class="mt-2 font-medium text-base text-center">Descargar PDF</h3>
                 </div>
-                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md">
+                <div class="flex justify-center items-center flex-col cursor-pointer hover:bg-slate-200 p-2 rounded-md" (click)="descargarArchivoAudio()">
                     <img class="w-12" src="./assets/icons/music-icon.svg" alt="Icono Audio">
                     <h3 class="mt-2 font-medium text-base text-center">Descargar Audio</h3>
                 </div>

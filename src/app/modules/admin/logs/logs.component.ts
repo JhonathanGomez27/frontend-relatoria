@@ -11,6 +11,7 @@ import { LogsService } from './logs.service';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { environment } from 'environments/environment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-logs',
@@ -42,7 +43,9 @@ export class LogsComponent implements OnInit, OnDestroy {
     constructor(
         private titleService: Title,
         private _logsService: LogsService,
-        private _changeDetectorRef: ChangeDetectorRef
+        private _changeDetectorRef: ChangeDetectorRef,
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
     ) {
         this.titleService.setTitle('Relatoría | Monitoreo Logs');
     }
@@ -54,6 +57,15 @@ export class LogsComponent implements OnInit, OnDestroy {
 
             this.dataSource = new MatTableDataSource<any>(this.logs);
             this._changeDetectorRef.markForCheck();
+        });
+
+        this.activatedRoute.queryParams.subscribe(params => {
+            if(!params.page){
+                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { page: '1' }});
+                this.page = 0;
+            }else{
+                this.page = parseInt(params.page) - 1;
+            }
         });
 
         // Subscribe to the search field value changes

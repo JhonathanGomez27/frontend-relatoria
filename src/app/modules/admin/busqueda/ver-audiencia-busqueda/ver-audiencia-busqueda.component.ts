@@ -79,6 +79,11 @@ export class VerAudienciaBusquedaComponent {
 
         this._busquedaService.audiencia$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
             this.audiencia = response.sesion;
+
+            this.videoUrl = `./video/${this.audiencia.rutaVideo}`;
+            this.audioUrl = `./audio/${this.audiencia.rutaAudio}`;
+            this._changeDetectorRef.markForCheck();
+
             this._changeDetectorRef.markForCheck();
         });
 
@@ -203,7 +208,7 @@ export class VerAudienciaBusquedaComponent {
         }
 
         let lastSub = this.subtitulos[this.subtitulos.length - 1].minuto;
-        const minuto = parseInt(lastSub) * 60;
+        const minuto = (parseInt(lastSub) * 60) + 60;
 
         if(this.myScriptElement.currentTime > minuto){
             if(this.page + 2 > this.totalPages){
@@ -248,5 +253,45 @@ export class VerAudienciaBusquedaComponent {
     //-----------------------------------
     handlePageEnvent(event: PageEvent): void {
         this.aplicarFiltroBusqueda(event.pageIndex);
+    }
+
+    //-----------------------------------
+    // Metedos descargas
+    //-----------------------------------
+
+    descargarArchivoXml(): void {
+        const archivXML = this.audiencia.rutaXML;
+        const ruta = `./xml/${archivXML}`;
+        const a = document.createElement('a');
+        a.href = ruta;
+        a.download = archivXML;
+        a.click();
+    }
+
+    descargarArchivoAudio(): void {
+        const archivAudio = this.audiencia.rutaAudio;
+        const ruta = `./audio/${archivAudio}`;
+        const a = document.createElement('a');
+        a.href = ruta;
+        a.download = archivAudio;
+        a.click();
+    }
+
+    descargarArchivoPdf(): void {
+        const archivPdf = this.audiencia.rutaPDF;
+        const ruta = `./pdf/${archivPdf}`;
+        const a = document.createElement('a');
+        a.href = ruta;
+        a.download = archivPdf;
+        a.click();
+    }
+
+    descargarArchivoWord(): void {
+        const archivWord = this.audiencia.rutaDoc;
+        const ruta = `./word/${archivWord}`;
+        const a = document.createElement('a');
+        a.href = ruta;
+        a.download = archivWord;
+        a.click();
     }
 }

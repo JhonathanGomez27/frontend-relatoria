@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation,} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation,} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Location, NgClass, NgFor, NgIf, TitleCasePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -32,6 +32,9 @@ import { environment } from 'environments/environment';
 
 export class VerSesionComponent implements OnInit, OnDestroy {
 
+    @ViewChild('audioPlayer', {static: true}) audioPlayer: ElementRef;
+    myScriptElement: HTMLAudioElement;
+
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
     debounce: number = 1500;
@@ -57,6 +60,11 @@ export class VerSesionComponent implements OnInit, OnDestroy {
     criterio: string = 'nombre';
     orden: string = 'ASC';
 
+    audioUrl: string = '';
+    loadAudio: boolean = false;
+
+    sesionPresionada: any = null;
+
     constructor(
         private titleService: Title,
         private location: Location,
@@ -72,6 +80,10 @@ export class VerSesionComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+
+        this.myScriptElement = this.audioPlayer.nativeElement;
+
+        // this.loadAudio = false;
 
         this._inicioPortalService.sesiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
             this.resultados = response.resultados;
@@ -244,5 +256,26 @@ export class VerSesionComponent implements OnInit, OnDestroy {
     //-----------------------------------
     handlePageEnvent(event: PageEvent): void {
         this.aplicarFiltro(event.pageIndex);
+    }
+
+    iniciarAudio(nombre: string, sesion:any): void {
+        if(!this.loadAudio){
+            this.sesionPresionada = sesion.clavePrincipal;
+            this.audioUrl = `./audio/${nombre}`;
+
+            this.loadAudio = true;
+            this._changeDetectorRef.markForCheck();
+
+            setTimeout(() => {
+                this.myScriptElement.play();
+            }, 200);
+        }else{
+            this.sesionPresionada = null;
+            this.myScriptElement.pause();
+            this.myScriptElement.currentTime = 0;
+            this.loadAudio = false;
+
+            this._changeDetectorRef.markForCheck();
+        }
     }
 }

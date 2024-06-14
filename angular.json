@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/fuse",
+                        "outputPath": "dist/relatoria",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": [
@@ -58,6 +58,12 @@
                             "src/@fuse/styles/main.scss",
                             "src/styles/styles.scss",
                             "src/styles/tailwind.scss"
+                        ],
+                        "fileReplacements": [
+                            {
+                                "replace": "src/environments/environment.ts",
+                                "with": "src/environments/environment.prod.ts"
+                            }
                         ],
                         "scripts": []
                     },

@@ -44,6 +44,14 @@
 
                 </div>
             </div>
+
+            <!-- audio player -->
+            <div class="w-full hidden">
+                <audio controls class="w-full" #audioPlayer>
+                    <source [src]="audioUrl" type="audio/mpeg" *ngIf="loadAudio">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
         </mat-drawer>
 
         <!-- Drawer content -->
@@ -96,8 +104,9 @@
                         <div class="p-4 border border-gray-300 rounded-md flex flex-row items-center gap-3 overflow-hidden mb-3">
                             <!-- icon -->
                             <div class="flex items-center">
-                                <button mat-icon-button [color]="'primary'">
-                                    <mat-icon class="icon-size-12" svgIcon="heroicons_solid:play-circle"></mat-icon>
+                                <button mat-icon-button [color]="'primary'" (click)="iniciarAudio(sesion.sesion.rutaAudio, sesion.sesion)">
+                                    <mat-icon class="icon-size-12" svgIcon="heroicons_solid:play-circle" *ngIf="sesionPresionada !== sesion.sesion.clavePrincipal"></mat-icon>
+                                    <mat-icon class="icon-size-8" svgIcon="heroicons_solid:pause" *ngIf="sesionPresionada === sesion.sesion.clavePrincipal"></mat-icon>
                                 </button>
                             </div>
 
@@ -105,9 +114,9 @@
                             <div class="w-full overflow-hidden">
                                 <div class="w-full flex flex-row items-center overflow-hidden justify-between gap-3">
                                     <h1 class="text-xl font-medium truncate ">{{sesion.sesion.nombre}}</h1>
-                                    <button mat-icon-button [color]="'primary'">
+                                    <!-- <button mat-icon-button [color]="'primary'">
                                         <mat-icon class="icon-size-10" svgIcon="mat_outline:download_for_offline"></mat-icon>
-                                    </button>
+                                    </button> -->
                                 </div>
 
                                 <div class="border-2 border-primary-600 my-2"></div>

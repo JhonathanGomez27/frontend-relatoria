@@ -48,6 +48,13 @@
                             <mat-datepicker #toDatePicker></mat-datepicker>
                         </mat-form-field>
                     </div>
+
+                    <div class="p-2 mt-2 bg-white">
+                        <button class="rounded-none w-full text-white" mat-flat-button [color]="'primary'" (click)="aplicarFiltro(0)">
+                            <mat-icon class="text-white" [svgIcon]="'feather:filter'"></mat-icon>
+                            <span class="hidden sm:inline-block ml-2 text-white">Filtrar</span>
+                        </button>
+                    </div>
                 </form>
             </div>
         </mat-drawer>
@@ -153,7 +160,7 @@
 
                                 <ng-container *ngFor="let item of resultados">
                                     <!-- contenedor comision -->
-                                    <div class="w-full flex flex-col border-2 p-4 rounded-xl hover:shadow-xl">
+                                    <div class="w-full flex flex-col border-2 p-4 rounded-xl hover:shadow-xl mb-3">
                                         <!-- comision data -->
                                         <div class="flex flex-row items-center gap-2">
                                             <!-- icon -->
