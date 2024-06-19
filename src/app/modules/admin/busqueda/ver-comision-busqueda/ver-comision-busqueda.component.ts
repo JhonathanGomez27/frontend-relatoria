@@ -76,17 +76,8 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit(): void {
-
         this.myScriptElement = this.audioPlayer.nativeElement;
 
-        this._busquedaService.sesiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
-            this.resultados = response.resultados;
-            this.totalResultados = response.total;
-            this.comision = response.comision;
-
-            this.titleService.setTitle(`Relatoría | ${this.comision.title}`);
-            this._changeDetectorRef.markForCheck();
-        });
 
         this.activatedRoute.queryParams.subscribe(params => {
             if(!params.page){
@@ -97,8 +88,9 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
             }
 
             if (params.busqueda && this.initial === 'init') {
-                this.searchControl.setValue(params.busqueda);
                 this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }});
+
+                this.searchControl.setValue(params.busqueda);
             }
 
             // if(this.initial === 'init'){
@@ -107,6 +99,15 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
         });
 
         this.initial = 'fin';
+
+        this._busquedaService.sesiones$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
+            this.resultados = response.resultados;
+            this.totalResultados = response.total;
+            this.comision = response.comision;
+
+            this.titleService.setTitle(`Relatoría | ${this.comision.title}`);
+            this._changeDetectorRef.markForCheck();
+        });
 
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(

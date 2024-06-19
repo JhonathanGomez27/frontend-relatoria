@@ -43,6 +43,14 @@
                     <h2 class="font-semibold mb-2">Subsecretaria: <span class="font-normal">{{comision.subsecretario}}</span></h2>
 
                 </div>
+
+                <!-- audio player -->
+                <div class="w-full hidden">
+                    <audio controls class="w-full" #audioPlayer>
+                        <source [src]="audioUrl" type="audio/mpeg" *ngIf="loadAudio">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
             </div>
         </mat-drawer>
 
@@ -115,13 +123,13 @@
 
                                 <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
                                     <div>
-                                        <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                        <p class="text-md "><span class="font-semibold">Fecha:</span>{{sesion.sesion.fecha | date:'longDate'}}</p>
                                     </div>
                                     <div>
-                                        <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
+                                        <!-- <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p> -->
                                     </div>
                                     <div class="hidden sm:block">
-                                        <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                        <p class="text-md "><span class="font-semibold">Duracion:</span>{{sesion.sesion.duracion || '00:00:00'}}</p>
                                     </div>
 
                                     <div>

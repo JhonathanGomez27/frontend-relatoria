@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, inject, LOCALE_ID } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -15,6 +15,10 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './shared/customPaginatorConfiguration';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEs, 'es');
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -129,6 +133,7 @@ export const appConfig: ApplicationConfig = {
         {
             provide: MatPaginatorIntl,
             useClass: CustomMatPaginatorIntl
-        }
+        },
+        {provide: LOCALE_ID, useValue: 'es'}
     ],
 };

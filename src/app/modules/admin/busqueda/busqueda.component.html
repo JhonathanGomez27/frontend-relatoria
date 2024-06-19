@@ -107,13 +107,13 @@
 
                                             <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
                                                 <div>
-                                                    <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                                    <p class="text-md "><span class="font-semibold">Fecha:</span>{{sesion.sesion.fecha | date:'longDate'}}</p>
                                                 </div>
-                                                <div>
+                                                <!-- <div>
                                                     <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
-                                                </div>
+                                                </div> -->
                                                 <div class="hidden sm:block">
-                                                    <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                                    <p class="text-md "><span class="font-semibold">Duracion:</span>{{sesion.sesion.duracion || '00:00:00'}}</p>
                                                 </div>
 
                                                 <div>
@@ -202,10 +202,13 @@
 
                                                         <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
                                                             <div>
-                                                                <p class="text-md "><span class="font-semibold">Fecha:</span> Mayo 16, 2024</p>
+                                                                <p class="text-md "><span class="font-semibold">Fecha:</span>{{sesion.sesion.fecha | date:'longDate'}}</p>
                                                             </div>
+                                                            <!-- <div>
+                                                                <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
+                                                            </div> -->
                                                             <div class="hidden sm:block">
-                                                                <p class="text-md "><span class="font-semibold">Duracion:</span> 00:00</p>
+                                                                <p class="text-md "><span class="font-semibold">Duracion:</span>{{sesion.sesion.duracion || '00:00:00'}}</p>
                                                             </div>
 
                                                             <div>
