@@ -10,7 +10,7 @@
                 <mat-icon
                     class="icon-size-5 text-secondary"
                     [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>
-                <a class="ml-1 text-primary-500" [routerLink]="['../../comision', audiencia.id_comision]" queryParamsHandling="merge">Comisión Primera de la Cámara de Representantes</a>
+                <a class="ml-1 text-primary-500" [routerLink]="['../../comision', audiencia.id_comision]" queryParamsHandling="merge">{{comision.title}}</a>
             </div>
             <div class="flex items-center ml-1 whitespace-nowrap">
                 <mat-icon

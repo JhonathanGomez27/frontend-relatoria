@@ -79,11 +79,10 @@ export class VerAudienciaBusquedaComponent {
 
         this._busquedaService.audiencia$.pipe(takeUntil(this._unsubscribeAll)).subscribe((response: any) => {
             this.audiencia = response.sesion;
+            this.comision = response.sesion.comision;
 
             this.videoUrl = `./video/${this.audiencia.rutaVideo}`;
             this.audioUrl = `./audio/${this.audiencia.rutaAudio}`;
-            this._changeDetectorRef.markForCheck();
-
             this._changeDetectorRef.markForCheck();
         });
 

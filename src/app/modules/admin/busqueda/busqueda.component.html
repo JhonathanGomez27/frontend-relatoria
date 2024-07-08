@@ -22,10 +22,10 @@
             <div cass="overflow-y-hidden">
                 <form [formGroup]="filterForm">
                     <div class="px-5 mt-2" *appShowForRoles="['admin']">
-                        <p class="text-secondary font-medium">Comision</p>
+                        <p class="text-secondary font-medium">Comisión</p>
                         <mat-form-field class="w-full mt-2" [subscriptSizing]="'dynamic'">
                             <mat-select placeholder="Seleccionar comision" [formControlName]="'comision'" (selectionChange)="setQueryParam('comision', $event.value)" >
-                                <mat-option [value]="''" class="font-medium my-2">Seleccionar comision</mat-option>
+                                <mat-option [value]="''" class="font-medium my-2">Seleccionar comisión</mat-option>
                                 <ng-container *ngFor="let item of comisiones">
                                     <mat-option [value]="item.id" class="font-medium my-2">{{item.title | titlecase}}</mat-option>
                                 </ng-container>
@@ -202,13 +202,13 @@
 
                                                         <div class="w-full flex flex-row gap-3 mt-2 items-center justify-evenly">
                                                             <div>
-                                                                <p class="text-md "><span class="font-semibold">Fecha:</span>{{sesion.sesion.fecha | date:'longDate'}}</p>
+                                                                <p class="text-md "><span class="font-semibold">Fecha:</span>{{sesion.fecha | date:'longDate'}}</p>
                                                             </div>
                                                             <!-- <div>
                                                                 <p class="text-md "><span class="font-semibold">Hora:</span> 9:00 am</p>
                                                             </div> -->
                                                             <div class="hidden sm:block">
-                                                                <p class="text-md "><span class="font-semibold">Duracion:</span>{{sesion.sesion.duracion || '00:00:00'}}</p>
+                                                                <p class="text-md "><span class="font-semibold">Duracion:</span>{{sesion.duracion || '00:00:00'}}</p>
                                                             </div>
 
                                                             <div>
