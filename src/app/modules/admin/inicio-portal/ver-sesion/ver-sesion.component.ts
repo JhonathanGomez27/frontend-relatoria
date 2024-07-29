@@ -56,9 +56,9 @@ export class VerSesionComponent implements OnInit, OnDestroy {
 
     initial: string = 'init';
 
-    sortFilter: string = 'Alfabeticamente: Ascendente';
-    criterio: string = 'nombre';
-    orden: string = 'ASC';
+    sortFilter: string = 'Mas Recientes';
+    criterio: string = 'fecha';
+    orden: string = 'DESC';
 
     audioUrl: string = '';
     loadAudio: boolean = false;
@@ -103,7 +103,7 @@ export class VerSesionComponent implements OnInit, OnDestroy {
             }
 
             if (params.busqueda && this.initial === 'init') {
-                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }});
+                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }, queryParamsHandling: 'merge'});
                 this.searchControl.setValue(params.busqueda);
             }
 
@@ -169,7 +169,7 @@ export class VerSesionComponent implements OnInit, OnDestroy {
     //-----------------------------------
 
     aplicarFiltro(page:any): void{
-        console.log("entra");
+        // console.log("entra");
         this.buscar = true;
         this.page = page;
 
@@ -200,7 +200,7 @@ export class VerSesionComponent implements OnInit, OnDestroy {
 
         data.filtroOrdenamiendo = filtroOrdenamiendo;
 
-        this._inicioPortalService.getAudienciasPorSesionBusqueda(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        this._inicioPortalService.getAudienciasPorSesionBusquedaPaginated(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (response:any) => {
                 this._inicioPortalService.sesiones = response;
 

@@ -78,6 +78,8 @@ export class InicioPortalService {
     //-----------------------------------
     // Metodos sesion
     //-----------------------------------
+
+    //Sesiones sin filtro de busqueda
     getSesionesPorComision(id: string, page: any): Observable<any> {
         let params = new HttpParams();
         params = params.set('page', page);
@@ -85,10 +87,12 @@ export class InicioPortalService {
 
         let data = {
             filtroOrdenamiendo: {
-                campo: 'nombre',
-                direccion: 'ASC'
+                campo: 'fecha',
+                direccion: 'DESC'
             }
         }
+
+        data.filtroOrdenamiendo = data.filtroOrdenamiendo;
 
         return this._httpCliente.post(`${this.url}comisiones/getSesionesPorComision/${id}`, data, {params}).pipe(
             tap((response: any) => {
@@ -105,18 +109,13 @@ export class InicioPortalService {
         return this._httpCliente.post(`${this.url}comisiones/getSesionesPorComision/${id}`, data, {params});
     }
 
+
+    // Sesiones con filtro de busqueda
+
     getAudienciasPorSesionBusqueda(data:any, page:any): Observable<any> {
         let params = new HttpParams();
         params = params.set('page', page);
         params = params.set('limit', this.limit);
-
-
-        let filtroOrdenamiendo: {
-            campo: 'nombre',
-            direccion: 'ASC'
-        }
-
-        data.filtroOrdenamiendo = filtroOrdenamiendo;
 
         return this._httpCliente.post(`${this.url}comisiones/buscarEnUnaComision`, data, {params}).pipe(
             tap((response: any) => {

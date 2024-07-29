@@ -55,9 +55,9 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
 
     initial: string = 'init';
 
-    sortFilter: string = 'Alfabeticamente: Ascendente';
-    criterio: string = 'nombre';
-    orden: string = 'ASC';
+    sortFilter: string = 'Mas Recientes';
+    criterio: string = 'fecha';
+    orden: string = 'DESC';
 
     audioUrl: string = '';
     loadAudio: boolean = false;
@@ -88,7 +88,7 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
             }
 
             if (params.busqueda && this.initial === 'init') {
-                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }});
+                this.router.navigate([],{relativeTo: this.activatedRoute,queryParams: { busqueda: params.busqueda }, queryParamsHandling: 'merge'});
 
                 this.searchControl.setValue(params.busqueda);
             }
@@ -195,7 +195,7 @@ export class VerComisionBusquedaComponent implements OnInit, OnDestroy{
 
         data.filtroOrdenamiendo = filtroOrdenamiendo;
 
-        this._busquedaService.getAudienciasPorSesionBusqueda(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
+        this._busquedaService.getAudienciasPorSesionBusquedaPaginated(data, pagina).pipe(takeUntil(this._unsubscribeAll)).subscribe(
             (response:any) => {
                 this._busquedaService.sesiones = response;
 

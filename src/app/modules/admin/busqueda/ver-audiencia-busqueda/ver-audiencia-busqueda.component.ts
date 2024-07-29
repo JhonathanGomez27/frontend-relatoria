@@ -81,7 +81,9 @@ export class VerAudienciaBusquedaComponent {
             this.audiencia = response.sesion;
             this.comision = response.sesion.comision;
 
+            // this.videoUrl = `./videos/${this.audiencia.rutaVideo}`;
             this.videoUrl = `./video/${this.audiencia.rutaVideo}`;
+
             this.audioUrl = `./audio/${this.audiencia.rutaAudio}`;
             this._changeDetectorRef.markForCheck();
         });

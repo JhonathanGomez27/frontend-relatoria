@@ -41,8 +41,13 @@ export const getComisionesBusquedaResolver: ResolveFn<any> = (route: ActivatedRo
         claveBusqueda = route.queryParamMap.get('busqueda') || '';
     }
 
+    const filtroOrdenamiendo = {
+        campo: 'fecha',
+        direccion: 'DESC'
+    }
+
     if(claveBusqueda !== ''){
-        return inject(BusquedaService).getAudienciasPorSesionBusqueda({palabraClave: claveBusqueda, comisionId: comision}, page);
+        return inject(BusquedaService).getAudienciasPorSesionBusqueda({palabraClave: claveBusqueda, comisionId: comision, filtroOrdenamiendo}, page);
     }
 
     return inject(BusquedaService).getSesionesPorComision(comision, page);

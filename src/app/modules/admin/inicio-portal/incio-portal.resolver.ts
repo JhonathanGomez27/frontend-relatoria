@@ -28,8 +28,13 @@ export const getSesionesResolver: ResolveFn<any> = (route: ActivatedRouteSnapsho
         claveBusqueda = route.queryParamMap.get('busqueda') || '';
     }
 
+    const filtroOrdenamiendo = {
+        campo: 'fecha',
+        direccion: 'DESC'
+    }
+
     if(claveBusqueda !== ''){
-        return inject(InicioPortalService).getAudienciasPorSesionBusqueda({palabraClave: claveBusqueda, comisionId: comision}, page);
+        return inject(InicioPortalService).getAudienciasPorSesionBusqueda({palabraClave: claveBusqueda, comisionId: comision, filtroOrdenamiendo}, page);
     }
 
     return inject(InicioPortalService).getSesionesPorComision(comision, page);

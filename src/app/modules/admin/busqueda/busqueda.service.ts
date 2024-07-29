@@ -149,6 +149,8 @@ export class BusquedaService {
     //-----------------------------------
     // Metodos comisiones
     //-----------------------------------
+
+    //Sin parametro de busqueda
     getSesionesPorComision(id: string, page: any): Observable<any> {
         let params = new HttpParams();
         params = params.set('page', page);
@@ -156,8 +158,8 @@ export class BusquedaService {
 
         let data = {
             filtroOrdenamiendo: {
-                campo: 'nombre',
-                direccion: 'ASC'
+                campo: 'fecha',
+                direccion: 'DESC'
             }
         }
 
@@ -176,18 +178,12 @@ export class BusquedaService {
         return this._httpCliente.post(`${this.url}comisiones/getSesionesPorComision/${id}`, data, {params});
     }
 
+    //Con parametro de busqueda
+
     getAudienciasPorSesionBusqueda(data:any, page:any): Observable<any> {
         let params = new HttpParams();
         params = params.set('page', page);
-        params = params.set('limit', this.limit);
-
-
-        let filtroOrdenamiendo: {
-            campo: 'nombre',
-            direccion: 'ASC'
-        }
-
-        data.filtroOrdenamiendo = filtroOrdenamiendo;
+        params = params.set('limit', this.limit)
 
         return this._httpCliente.post(`${this.url}comisiones/buscarEnUnaComision`, data, {params}).pipe(
             tap((response: any) => {
@@ -197,7 +193,7 @@ export class BusquedaService {
     }
 
     getAudienciasPorSesionBusquedaPaginated(data:any, page:any): Observable<any> {
-        console.log(page, data);
+        // console.log(page, data);
         let params = new HttpParams();
         params = params.set('page', page);
         params = params.set('limit', this.limit);
